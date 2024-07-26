@@ -1,0 +1,101 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+    font-family: "Montserrat", sans-serif;
+}
+
+header p{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-titulo{
+    font-family: "Irish Grover", system-ui;
+    font-size: 1.6em;
+}
+
+#nombre-usuario img{
+    width: 2em;
+    height: 2em;
+    padding-right: 2px;
+}
+
+#logo-titulo img{
+    width: 3em;
+    height: auto;
+    padding-right: 2px;
+}
+
+#nombre-usuario img{
+    width: 2em;
+    height: 2em;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 12% 1fr 1fr;
+    grid-template-rows: 5em 1fr 3em;
+    grid-template-areas: "h h h"
+                         "n m m"
+                         "n f f";
+    height: 100vh;
+}
+
+header{
+    display: flex;
+    grid-area: h;
+    background: #F7CAC9;
+    padding: 0.5em;
+    justify-content: space-between;
+}
+
+nav{
+    padding-top: 1rem;
+    grid-area: n;
+    background: #F7CAC9;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+nav h2{
+    padding-bottom: 0.4em;
+}
+
+nav h3{
+    padding-bottom: 0.2em;
+    padding-left: 1em;
+}
+
+nav a{
+    text-decoration: none;
+    color: black;
+    margin-left: 0.1rem;
+    font-family: "Irish Grover", system-ui;
+}
+
+nav h2:hover, nav h3:hover{
+    background: #F5B895;
+}
+
+main{
+    grid-area: m;
+    display: grid;
+    background: #FFF5E1;
+    padding: 2em;
+    margin: 0;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: auto;
+    gap: 3em;
+    justify-content: space-evenly;
+}
+
+
+footer{
+    grid-area: f;
+    display: flex;
+    background: #F7CAC9;
+    align-items: center;
+    justify-content: center;
+}
