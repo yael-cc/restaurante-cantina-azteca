@@ -74,10 +74,10 @@
                             <h2>'.$fila['nombrePlatillo'].'</h2>
                             <p>Categoria: '.$nombreCategoria.'<br>'. $mensajeP . '<br>Descripción: '.$fila['descripcionPlatillo'].'</p>
                             <div class="cont-boton">
-                                <form method="POST" action="../platillo.php">
+                                <form method="POST" action="platillo.php">
                                     <input type="hidden" name="nombrePlatillo" value="'.$fila['nombrePlatillo'].'">
                                     <input type="hidden" name="nombreCategoria" value="Especial">
-                                    <input type="hidden" name="nivel" value="normal">
+                                    <input type="hidden" name="nivel" value="anormal">
                                     <button type="submit">Ver detalles</button>
                                 </form>
                             </div>

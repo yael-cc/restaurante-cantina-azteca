@@ -16,6 +16,10 @@
 
 <?php
     include("general.php");
+    if (empty($_POST)) {
+        header('refresh:0,url="./populares.php"');
+    }
+
 ?>
 
 <body>
