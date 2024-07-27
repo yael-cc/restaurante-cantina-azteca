@@ -24,7 +24,15 @@
         <?php
             include("../recursos/conexion.php");
 
-            $consultaSQL = "SELECT * FROM Platillo ORDER BY nombrePlatillo";
+            $consultaSQL = "SELECT p.* FROM platillo p
+                        JOIN (
+                            SELECT idPlatillo
+                            FROM pedidoPlatillo
+                            GROUP BY idPlatillo
+                            ORDER BY SUM(cantidad) DESC
+                            LIMIT 15
+                        ) pp ON p.idPlatillo = pp.idPlatillo;
+                        ";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {
