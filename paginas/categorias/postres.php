@@ -15,7 +15,7 @@
 </head>
 
 <?php
-    include("../general.php");
+    include("general-categorias.php");
 ?>
 
 <body>

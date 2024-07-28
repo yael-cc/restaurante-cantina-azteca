@@ -1,0 +1,25 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+    font-family: "Montserrat", sans-serif;
+  
+}
+
+.saludo,.eslogan,.info{
+    text-align: center;
+    color: white;
+}
+
+.info{
+    font-size: 1.2rem;
+    margin-right: 5%;
+    margin-left: 5%;
+    font-weight: bold;
+}
+
+section {
+    background-image: url('../imagenes/galeria/foto1.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
