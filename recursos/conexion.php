@@ -9,6 +9,6 @@
     if ($conexion->connect_error) {
         die('Conexion fallida'. $conexion->connect_error);
     }else {
-        // echo 'Conectado';
+        // echo 'Conectado';;
     }
 ?>
