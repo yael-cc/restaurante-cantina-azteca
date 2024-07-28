@@ -20,7 +20,39 @@
 
 <body>
     <main>
-        <!-- Lo que vayan a poner pongalo aqui -->
-    </main>
+    <section class="seccion-inicio" id="inicio" >
+    <div class="img-contenedor">
+
+<script src="../recursos/carrusel.js" defer></script>  
+
+<div class="carrusel">
+    <img src="../imagenes/galeria/foto1.jpeg" alt="">
+    <img src="../imagenes/galeria/foto2.jpeg" alt="">
+    <img src="../imagenes/galeria/foto3.jpeg" alt="">
+    <img src="../imagenes/galeria/foto4.jpeg" alt="">
+    <img src="../imagenes/galeria/foto5.jpeg" alt="">
+    <img src="../imagenes/galeria/foto6.jpeg" alt="">
+    <img src="../imagenes/galeria/foto7.jpeg" alt="">
+    <img src="../imagenes/galeria/foto8.jpeg" alt="">
+    <img src="../imagenes/galeria/foto9.jpeg" alt="">
+    <img src="../imagenes/galeria/foto10.jpeg" alt="">
+    <img src="../imagenes/galeria/foto11.jpeg" alt="">
+    <img src="../imagenes/galeria/foto12.jpeg" alt="">
+    <img src="../imagenes/galeria/foto13.jpeg" alt="">
+</div>
+
+<div class="contenedor-nav-img">
+    <ul class="navegador-img">
+        <li class="carrusel-btn">&#8718;</li>
+        <li class="carrusel-btn">&#8718;</li>
+        <li class="carrusel-btn">&#8718;</li>
+        <li class="carrusel-btn">&#8718;</li>
+        <li class="carrusel-btn">&#8718;</li>
+    
+    </ul>
+</div>
+</div>
+</section>
+</main>
 </body>
 </html>
