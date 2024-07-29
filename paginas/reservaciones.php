@@ -31,8 +31,7 @@
                 <br>
                 <label for="comentario">Comentarios adicionales: </label>
                 <br>
-                <textarea name="comentario" id="comentario" cols="50" rows="10" placeholder="Ingresa comentarios adicionales en caso de ser necesario.">
-                </textarea>
+                <textarea name="comentario" id="comentario" cols="50" rows="10" placeholder="Ingresa comentarios adicionales en caso de ser necesario."></textarea>
                 <br>
                 <label for="fecha">Fecha para la reservación:</label>
                 <br>

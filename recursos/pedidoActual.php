@@ -3,6 +3,7 @@
     // include '../paginas/general.php';
 
     $idPedidoActual = 0;
+<<<<<<< HEAD
     
     // $sqlIDUsuario="SELECT idUsuario from usuario where nombreUsuarioLogin = '".$_SESSION['usuario']."'";
     // $resultado = $conexion->query($sqlIDUsuario);
@@ -16,6 +17,9 @@
     // }
 
     $consultaPedidoActual = "SELECT idPedido FROM Pedido WHERE (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 1) OR (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 3) LIMIT 1";
+=======
+    $consultaPedidoActual = "SELECT idPedido FROM pedido WHERE (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 1) OR (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 3) LIMIT 1";
+>>>>>>> master
     
     $resultadoPedidoA = $conexion->query($consultaPedidoActual);
 

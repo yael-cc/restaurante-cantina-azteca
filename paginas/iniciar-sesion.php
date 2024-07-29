@@ -21,6 +21,7 @@
             }
         }
     } else {
-        echo "<h2>No se encontro el usuario.</h2> <br>";
+        include('inicio-sesion.php');
+        echo "<script>alert('Usuario no encontraso')</script>";
     }
 ?>

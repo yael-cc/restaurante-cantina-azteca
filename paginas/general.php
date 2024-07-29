@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <?php
+        session_start();
         include("../recursos/pedidoActual.php");
         include("inicar-sesion.php");
     ?>
@@ -28,7 +29,7 @@
 
         $consultaSQL = "SELECT pp.idPlatillo, pp.cantidad, p.nombrePlatillo, p.precioPlatillo
                         FROM pedidoplatillo pp
-                        JOIN Platillo p ON pp.idPlatillo = p.idPlatillo
+                        JOIN platillo p ON pp.idPlatillo = p.idPlatillo
                         WHERE pp.idPedido = ?";
         $stmt = $conexion->prepare($consultaSQL);
         $stmt->bind_param("i", $idPedidoActual);
@@ -128,7 +129,6 @@
     <header>
         <p id="logo-titulo"> <img src=../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
         <?php
-            session_start();
             if(isset($_SESSION['usuario'])){
                 include('../recursos/conexion.php');
                 echo '<img class="carrito-boton" src="../imagenes/logo/cart.png" alt="">';

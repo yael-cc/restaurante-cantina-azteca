@@ -20,7 +20,7 @@
 
 <body>
     <main>
-        <form action="registrar-admin.php" method="post">
+        <form action="registrar-admin.php" method="post" enctype="multipart/form-data">
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" required>
             <br>
@@ -30,8 +30,8 @@
             <br>
 
             <!-- no valida el tipo de archivo -->
-            <label for="fotoPerfil">Foto de Pefil</label>
-            <input type="file" name="fotoPerfil" id="fotoPerfil" required>
+            <label for="imagen">Foto de Pefil</label>
+            <input type="file" name="imagen" id="imagen" required>
             <br>
 
             <label for="correo">Correo</label>
