@@ -126,8 +126,30 @@
 
 
     <header>
-        <p id="logo-titulo"> <img src=../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
-        <p id="nombre-usuario">  <img src="../imagenes/usuarios/usuario.png" alt="usuario"> MateoWert</p>
+        <p id="logo-titulo"> <img src=../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
+        <?php
+            session_start();
+            if(isset($_SESSION['usuario'])){
+                include('../recursos/conexion.php');
+                
+                //
+                $consultaSQL = "SELECT fotoUsuario FROM usuario WHERE nombreUsuarioLogin = '".$_SESSION['usuario']."'";
+                $resultado = $conexion->query($consultaSQL);
+            
+                if ($resultado->num_rows > 0) {
+                    while ($fila = $resultado->fetch_assoc()) {
+                        $rutaFoto = $fila['fotoUsuario'];
+                    }
+                } else {
+                    echo "<h2>No se encontro el usuario.</h2> <br>";
+                }
+                // 
+
+                echo "<p id='nombre-usuario'>  <img src='$rutaFoto' alt='usuario'>".$_SESSION['usuario']."</p>";
+            }else{
+                echo '<p id="nombre-usuario"><a href="inicio-sesion.php">Iniciar Sesión</a></p>';
+            }
+        ?>
     </header>
     <nav>
         <h2><a href="../paginas/populares.php">Populares</a></h2>
@@ -143,6 +165,14 @@
         <h2><a href="../paginas/reservaciones.php">Reservaciones</a></h2>
         <h2><a href="../paginas/pedidos.php">Mis pedidos</a></h2>
         <h2><a href="../paginas/acerca-de.php">Acerca de...</a></h2>
+        <?php
+            if(isset($_SESSION['usuario'])){
+                if($_SESSION['tipo']=='admin'){
+                    echo '<h2><a href="../paginas/registro-admin.php">Registrar Admin</a></h2>';
+                }
+                echo '<h2><a href="../paginas/cerrar-sesion.php">Cerrar Sesión</a></h2>';
+            }
+        ?>
     </nav>
     
     <footer>

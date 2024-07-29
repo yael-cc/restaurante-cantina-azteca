@@ -33,7 +33,7 @@
                 $nombreCategoria = $_POST['nombreCategoria'];
                 $nivel = $_POST['nivel'];
 
-                $consultaSQL = "SELECT * FROM Platillo WHERE nombrePlatillo = '$nombrePlatillo' LIMIT 1";
+                $consultaSQL = "SELECT * FROM platillo WHERE nombrePlatillo = '$nombrePlatillo' LIMIT 1";
                 $resultado = $conexion->query($consultaSQL);
 
                 if ($resultado->num_rows > 0) {

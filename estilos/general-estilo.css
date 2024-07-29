@@ -16,6 +16,23 @@ header p{
     font-size: 1.6em;
 }
 
+#nombre-usuario a{
+    text-decoration: none;
+    color: black;
+    font-family: "Irish Grover", system-ui;
+    font-size: 1.5rem;
+    padding-right: 1rem;
+}
+
+#nombre-usuario a:hover{
+    color: gray;
+}
+
+#nombre-usuario {
+    padding-right: 1rem;
+    padding-left: 0.5rem;
+}
+
 #nombre-usuario img{
     width: 2em;
     height: 2em;
@@ -46,7 +63,7 @@ body{
 header{
     display: flex;
     grid-area: h;
-    background: #F7CAC9;
+    background: #ffa7a5;
     padding: 0.5em;
     justify-content: space-between;
 }

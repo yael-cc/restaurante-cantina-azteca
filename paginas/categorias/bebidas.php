@@ -28,7 +28,7 @@
                 die("Error en la conexión: " . $conexion->connect_error);
             }
 
-            $consultaSQL = "SELECT * FROM Platillo WHERE idCategoria = 4 ORDER BY nombrePlatillo";
+            $consultaSQL = "SELECT * FROM platillo WHERE idCategoria = 4 ORDER BY nombrePlatillo";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {
