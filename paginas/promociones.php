@@ -23,8 +23,8 @@
     <main>
         <?php
             include("../recursos/conexion.php");
-            $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
-            $consultaSQL = "SELECT * FROM Platillo WHERE idPlatillo IN (SELECT idPlatillo FROM promocion WHERE fechaFinalPromocion >= $fechaActual) ORDER BY nombrePlatillo";
+            $fechaActual = date('y-m-d'); // Fecha actual en formato YYYY-MM-DD
+            $consultaSQL = "SELECT * FROM platillo WHERE idPlatillo IN (SELECT idPlatillo FROM promocion WHERE fechaFinalPromocion >= $fechaActual) ORDER BY nombrePlatillo";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {

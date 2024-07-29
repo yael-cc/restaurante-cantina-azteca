@@ -58,6 +58,9 @@
         <h2><a href="../paginas/acerca-de.php">Acerca de...</a></h2>
         <?php
             if(isset($_SESSION['usuario'])){
+                if($_SESSION['tipo']=='admin'){
+                    echo '<h2><a href="../paginas/registro-admin.php">Registrar Admin</a></h2>';
+                }
                 echo '<h2><a href="../paginas/cerrar-sesion.php">Cerrar Sesión</a></h2>';
             }
         ?>
