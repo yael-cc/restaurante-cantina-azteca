@@ -27,18 +27,18 @@
             $consultaSQL = "SELECT p.* FROM platillo p
                         JOIN (
                             SELECT idPlatillo
-                            FROM pedidoPlatillo
+                            FROM pedidoplatillo
                             GROUP BY idPlatillo
                             ORDER BY SUM(cantidad) DESC
                             LIMIT 15
                         ) pp ON p.idPlatillo = pp.idPlatillo;
                         ";
             $resultado = $conexion->query($consultaSQL);
-
+            
             if ($resultado->num_rows > 0) {
                 while ($fila = $resultado->fetch_assoc()) {
                     $idCategoria = $fila['idCategoria'];
-                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM Categoria WHERE idCategoria = $idCategoria";
+                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM categoria WHERE idCategoria = $idCategoria";
                     $nombreCategoriaResult = $conexion->query($nombreCategoriaSQL);
                     $nombreCategoria = '';
                     
@@ -51,7 +51,7 @@
                     $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
                     
                     // Preparar la consulta para evitar inyecciones SQL
-                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $stmt = $conexion->prepare("SELECT precioPromocion FROM promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
                     $stmt->bind_param("is", $idPlatillo, $fechaActual);
                     $stmt->execute();
                     $resultadoPromocion = $stmt->get_result();

@@ -18,7 +18,14 @@
 <body>
     <header>
         <p id="logo-titulo"> <img src=../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
-        <p id="nombre-usuario">  <img src="../imagenes/usuario.png" alt="usuario"> MateoWert</p>
+        <?php
+            session_start();
+            if(isset($_SESSION['usuario'])){
+                echo "<p id='nombre-usuario'>  <img src='../imagenes/usuario.png' alt='usuario'>".$_SESSION['usuario']."</p>";
+            }else{
+                echo '<p id="nombre-usuario"><a href="inicio-sesion.php">Iniciar Sesión</a></p>';
+            }
+        ?>
     </header>
     <nav>
         <h2><a href="../paginas/populares.php">Populares</a></h2>

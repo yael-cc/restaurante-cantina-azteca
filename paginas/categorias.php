@@ -24,7 +24,7 @@
         <?php
             include("../recursos/conexion.php");
 
-            $consultaSQL = "SELECT * FROM Categoria";
+            $consultaSQL = "SELECT * FROM categoria";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {
