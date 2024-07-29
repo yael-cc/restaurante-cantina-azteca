@@ -34,10 +34,9 @@
             if ($resultado->num_rows > 0) {
                 while ($fila = $resultado->fetch_assoc()) {
                     $idPlatillo = $fila['idPlatillo'];
-                    $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
+                    $fechaActual = date('Y-m-d');
                     
-                    // Preparar la consulta para evitar inyecciones SQL
-                    $stmt = $conexion->prepare("SELECT precioPromocion FROM promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
                     $stmt->bind_param("is", $idPlatillo, $fechaActual);
                     $stmt->execute();
                     $resultadoPromocion = $stmt->get_result();
