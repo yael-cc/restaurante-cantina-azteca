@@ -1,7 +1,7 @@
 <?php
     include("conexion.php");
     $idPedidoActual = 0;
-    $consultaPedidoActual = "SELECT idPedido FROM Pedido WHERE (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 1) OR (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 3) LIMIT 1";
+    $consultaPedidoActual = "SELECT idPedido FROM pedido WHERE (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 1) OR (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 3) LIMIT 1";
     
     $resultadoPedidoA = $conexion->query($consultaPedidoActual);
 
