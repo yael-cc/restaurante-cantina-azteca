@@ -1,7 +1,7 @@
 <?php
     $server = 'localhost';
     $user = 'root';
-    $pass = 'Nagetime12,';
+    $pass = '';
     $db = 'restaurante';
 
     $conexion = new mysqli($server, $user, $pass, $db);

@@ -34,7 +34,7 @@ if(!$conexion){
 
 
 
-if($resultadoPromocion){
+if($resultadoInsercion){
     redireccionar('Datos guardados correctamente','reservaciones.php');
 
 }else{
@@ -59,7 +59,6 @@ function redireccionar($mensaje,$dir){
     echo '<h4 style="text-align:center> Redireccionando....</h4>';
 
     header('refresh:3,url='.$dir);
- 
 }
 
 
