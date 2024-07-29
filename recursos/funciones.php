@@ -1,7 +1,7 @@
 
 <?php
     include("conexion.php");
-    $sql = "SELECT * FROM Usuario";
+    $sql = "SELECT * FROM usuario";
     $result = $conexion->query($sql);
 
     if ($result->num_rows > 0) {

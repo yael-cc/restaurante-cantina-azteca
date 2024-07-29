@@ -13,7 +13,7 @@
         <label for="password">Contraseña</label>
         <input type="password" name="password" id="password">
         <button type="submit">Iniciar Sesión</button>
-        <button><a href="acerca-de.php">Regresar</a></button>
+        <a href="acerca-de.php">Regresar</a>
     </form>
 </body>
 </html>

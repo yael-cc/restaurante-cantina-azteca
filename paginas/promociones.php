@@ -24,13 +24,13 @@
         <?php
             include("../recursos/conexion.php");
             $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
-            $consultaSQL = "SELECT * FROM Platillo WHERE idPlatillo IN (SELECT idPlatillo FROM Promocion WHERE fechaFinalPromocion >= $fechaActual) ORDER BY nombrePlatillo";
+            $consultaSQL = "SELECT * FROM Platillo WHERE idPlatillo IN (SELECT idPlatillo FROM promocion WHERE fechaFinalPromocion >= $fechaActual) ORDER BY nombrePlatillo";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {
                 while ($fila = $resultado->fetch_assoc()) {
                     $idCategoria = $fila['idCategoria'];
-                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM Categoria WHERE idCategoria = $idCategoria";
+                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM categoria WHERE idCategoria = $idCategoria";
                     $nombreCategoriaResult = $conexion->query($nombreCategoriaSQL);
                     $nombreCategoria = '';
                     
@@ -42,7 +42,7 @@
                     $idPlatillo = $fila['idPlatillo'];
                     
                     // Preparar la consulta para evitar inyecciones SQL
-                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $stmt = $conexion->prepare("SELECT precioPromocion FROM promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
                     $stmt->bind_param("is", $idPlatillo, $fechaActual);
                     $stmt->execute();
                     $resultadoPromocion = $stmt->get_result();

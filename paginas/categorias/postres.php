@@ -28,7 +28,7 @@
                 die("Error en la conexión: " . $conexion->connect_error);
             }
 
-            $consultaSQL = "SELECT * FROM Platillo WHERE idCategoria = 3 ORDER BY nombrePlatillo";
+            $consultaSQL = "SELECT * FROM platillo WHERE idCategoria = 3 ORDER BY nombrePlatillo";
             $resultado = $conexion->query($consultaSQL);
 
             if ($resultado->num_rows > 0) {
@@ -37,7 +37,7 @@
                     $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
                     
                     // Preparar la consulta para evitar inyecciones SQL
-                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $stmt = $conexion->prepare("SELECT precioPromocion FROM promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
                     $stmt->bind_param("is", $idPlatillo, $fechaActual);
                     $stmt->execute();
                     $resultadoPromocion = $stmt->get_result();
