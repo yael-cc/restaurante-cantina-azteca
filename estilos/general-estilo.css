@@ -149,3 +149,114 @@ footer{
 .navegador-img li:hover {
     color: black;
 }
+
+
+
+
+/* INICIA CARRITO DE COMPRAS */
+.carrito-boton {
+    width: 40px;
+    background: #F5B895;
+    position: fixed;
+    bottom: 8%;
+    right: 5%;
+    z-index: 15;
+    box-shadow: 0 0 5px gray;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.carrito-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 12;
+    background: rgba(255, 255, 255, 0.8);
+    display: grid;
+    place-items: center;
+    visibility: hidden;
+}
+
+.carrito-ventana {
+    width: 60%;
+    background: #FFF5E1;
+    border: 5px solid #F5B895;
+    padding: 10px;
+    color: #42929D;
+    font-family: 'Patua One', serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.carrito-ventana .encabezado-detalle, .carrito-ventana .total {
+    color: #42929D;
+    font-family: 'Balsamiq Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    border-bottom: 1px solid #42929D;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.carrito-ventana .total {
+    border-bottom: none;
+    margin-top: 1px solid #42929D;
+}
+
+.productos .renglon {
+    color: #42929D;
+    font-family: 'Balsamiq Sans', sans-serif;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    margin-bottom: 10px;
+}
+
+.renglon .precio, .total .precio-total {
+    text-align: right;
+}
+
+.encabezado-detalle .columna-precio{
+    text-align: center;
+}
+
+.carrito-ventana .renglon .boton-quitar {
+    color: #FFF5E1;
+    font-family: 'Balsamiq Sans', sans-serif;
+    background: #F7CAC9;
+    border: none;
+    cursor: pointer;
+    transition: background 0.5s;
+    margin-left: 5px;
+}
+
+.carrito-ventana .renglon .boton-quitar:hover {
+    background: #E08E79;
+    color: #FFF5E1;
+}
+
+.carrito-ventana .boton-compra {
+    width: 100%;
+    background: #F5B895;
+    color: #FFF5E1;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.carrito-ventana .boton-compra:hover {
+    background: #FFF5E1;
+    color: #F5B895;
+}
+
+.input-cantidad {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0.5px;
+}

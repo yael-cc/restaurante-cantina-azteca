@@ -17,8 +17,8 @@
 </head>
 <body>
     <header>
-        <p id="logo-titulo"> <img src=../../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
-        <p id="nombre-usuario">  <img src="../../imagenes/usuario.png" alt="usuario"> MateoWert</p>
+        <p id="logo-titulo"> <img src=../../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
+        <p id="nombre-usuario">  <img src="../../imagenes/usuarios/usuario.png" alt="usuario"> MateoWert</p>
     </header>
     <nav>
         <h2><a href="../../paginas/populares.php">Populares</a></h2>

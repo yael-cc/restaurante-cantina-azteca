@@ -1,8 +1,9 @@
 <?php
     $server = 'localhost';
     $user = 'root';
-    $pass = 'Nagetime12,';
+    $pass = '';
     $db = 'restaurante';
+    $idUsuarioActual = 2;
 
     $conexion = new mysqli($server, $user, $pass, $db);
 
@@ -11,4 +12,5 @@
     }else {
         // echo 'Conectado';;
     }
+
 ?>

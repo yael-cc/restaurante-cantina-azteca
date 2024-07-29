@@ -23,29 +23,36 @@
     <main>
         <?php
             include("../recursos/conexion.php");
+
             $fechaActual = date('Y-m-d'); // Fecha actual en formato YYYY-MM-DD
-            $consultaSQL = "SELECT * FROM Platillo WHERE idPlatillo IN (SELECT idPlatillo FROM Promocion WHERE fechaFinalPromocion >= $fechaActual) ORDER BY nombrePlatillo";
-            $resultado = $conexion->query($consultaSQL);
+
+            $consultaSQL = "SELECT * FROM Platillo WHERE idPlatillo IN (SELECT idPlatillo FROM Promocion WHERE fechaFinalPromocion >= ?) ORDER BY nombrePlatillo";
+            $stmt = $conexion->prepare($consultaSQL);
+            $stmt->bind_param("s", $fechaActual);
+            $stmt->execute();
+            $resultado = $stmt->get_result();
 
             if ($resultado->num_rows > 0) {
                 while ($fila = $resultado->fetch_assoc()) {
                     $idCategoria = $fila['idCategoria'];
-                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM Categoria WHERE idCategoria = $idCategoria";
-                    $nombreCategoriaResult = $conexion->query($nombreCategoriaSQL);
-                    $nombreCategoria = '';
+                    $nombreCategoriaSQL = "SELECT nombreCategoria FROM Categoria WHERE idCategoria = ?";
+                    $conexionCategoria = $conexion->prepare($nombreCategoriaSQL);
+                    $conexionCategoria->bind_param("i", $idCategoria);
+                    $conexionCategoria->execute();
+                    $nombreCategoriaResultado = $conexionCategoria->get_result();
                     
-                    if ($nombreCategoriaResult->num_rows > 0) {
-                        $categoriaRow = $nombreCategoriaResult->fetch_assoc();
+                    $nombreCategoria = '';
+                    if ($nombreCategoriaResultado->num_rows > 0) {
+                        $categoriaRow = $nombreCategoriaResultado->fetch_assoc();
                         $nombreCategoria = $categoriaRow['nombreCategoria'];
                     }
 
                     $idPlatillo = $fila['idPlatillo'];
                     
-                    // Preparar la consulta para evitar inyecciones SQL
-                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
-                    $stmt->bind_param("is", $idPlatillo, $fechaActual);
-                    $stmt->execute();
-                    $resultadoPromocion = $stmt->get_result();
+                    $conexionPromocion = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $conexionPromocion->bind_param("is", $idPlatillo, $fechaActual);
+                    $conexionPromocion->execute();
+                    $resultadoPromocion = $conexionPromocion->get_result();
 
                     $mensajeP = '';
                     $estiloColor = 'black';
@@ -53,20 +60,20 @@
                     if ($resultadoPromocion->num_rows > 0) {
                         $promo = $resultadoPromocion->fetch_assoc();
                         $precio = $promo['precioPromocion'];
-                        $mensajeP = '<strong style = "color:blue"> Precio: $'.$promo['precioPromocion'].' -->  PROMOCIÓN</strong> <br> <i style= "text-decoration: line-through; color:orange"><strong>Precio normal: $'. $fila['precioPlatillo'].'</strong></i>';
+                        $mensajeP = '<strong style="color: blue;"> Precio: $' . $precio . ' -->  PROMOCIÓN</strong> <br> <i style="text-decoration: line-through; color: orange;"><strong>Precio normal: $' . $fila['precioPlatillo'] . '</strong></i>';
                         $estiloColor = 'red';
                     } else {
-                        $mensajeP = 'Precio: $'. $fila['precioPlatillo'];
+                        $mensajeP = 'Precio: $' . $fila['precioPlatillo'];
                     }
 
                     echo '
                         <div class="elemento">
-                            <img src="'.str_replace('../../', '../', $fila['imagenPlatillo']).'" alt="Imagen del platillo">
-                            <h2>'.$fila['nombrePlatillo'].'</h2>
-                            <p>Categoria: '.$nombreCategoria.'<br>'. $mensajeP . '<br>Descripción: '.$fila['descripcionPlatillo'].'</p>
+                            <img src="' . str_replace('../../', '../', $fila['imagenPlatillo']) . '" alt="Imagen del platillo">
+                            <h2>' . $fila['nombrePlatillo'] . '</h2>
+                            <p>Categoria: ' . $nombreCategoria . '<br>' . $mensajeP . '<br>Descripción: ' . $fila['descripcionPlatillo'] . '</p>
                             <div class="cont-boton">
                                 <form method="POST" action="platillo.php">
-                                    <input type="hidden" name="nombrePlatillo" value="'.$fila['nombrePlatillo'].'">
+                                    <input type="hidden" name="nombrePlatillo" value="' . $fila['nombrePlatillo'] . '">
                                     <input type="hidden" name="nombreCategoria" value="Especial">
                                     <input type="hidden" name="nivel" value="anormal">
                                     <button type="submit">Ver detalles</button>

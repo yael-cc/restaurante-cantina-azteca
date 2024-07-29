@@ -1,27 +1,20 @@
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('listar_imagenes.php')
+        .then(response => response.json())
+        .then(archivo => {
+            let imagenesPequenias = archivo.chicas;
+            let imagenesGrandes = archivo.grandes;
 
-let cronometro;
-let imagenNumero = 0;
-cronometro = setInterval(siguienteImagen, 3000);
+            let currentIndex = 0;
 
-let carrusel = document.querySelector('.carrusel');
-let carruselBotones = document.getElementsByClassName('carrusel-btn');
-
-Array.from(carruselBotones).forEach((boton, indice) => {
-    boton.addEventListener('click', () => {
-        
-        let left = indice * -100;
-        carrusel.style.left = left + '%';
-        imagenNumero = indice;
-
-        clearInterval(cronometro);
-        cronometro = setInterval(siguienteImagen, 3000);
-        
-    });
+            function cambiarImagenes() {
+                currentIndex = (currentIndex + 1) % imagenesGrandes.length;
+                document.getElementById("imagen-pequenia").src = imagenesPequenias[currentIndex % imagenesPequenias.length];
+                document.getElementById("imagen-pequenia2").src = imagenesPequenias[(currentIndex + 1) % imagenesPequenias.length];
+                document.getElementById("imagen-grande").src = imagenesGrandes[currentIndex];
+            }
+            cambiarImagenes();
+            setInterval(cambiarImagenes, 2000);
+        })
+        .catch(error => console.error('Error:', error));
 });
-
-function siguienteImagen() {
-    imagenNumero = ++imagenNumero % carruselBotones.length;  
-    carrusel.style.left = imagenNumero * -100 + '%';
-}
-
-

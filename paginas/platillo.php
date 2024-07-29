@@ -16,6 +16,7 @@
 
 <?php
     include("general.php");
+    include("../recursos/pedidoActual.php");
     if (empty($_POST)) {
         header('refresh:0,url="./populares.php"');
     }
@@ -41,22 +42,61 @@
                     if ($nivel=='normal') {
                         $imagenPlatillo = str_replace('../', '../../', $fila['imagenPlatillo']);
                     }
+                
+                    $idPlatillo = $fila['idPlatillo'];
+                    $fechaActual = date('Y-m-d');
+                    
+                    $stmt = $conexion->prepare("SELECT precioPromocion FROM Promocion WHERE idPlatillo = ? AND fechaFinalPromocion >= ?");
+                    $stmt->bind_param("is", $idPlatillo, $fechaActual);
+                    $stmt->execute();
+                    $resultadoPromocion = $stmt->get_result();
+
+                    $mensajeP = '';
+                    $estiloColor = 'black';
+                    $mensajeS ='';
+
+                    if ($resultadoPromocion->num_rows > 0) {
+                        $promo = $resultadoPromocion->fetch_assoc();
+                        $precioPromocion = $promo['precioPromocion'];
+                        $precioNormal = $fila['precioPlatillo'];
+                    
+                        $mensajeP = '
+                            <strong style="color: blue;">
+                                Precio: $
+                                <p class="precio" style="display: inline;">' . $precioPromocion . '</p>
+                                <span style="color: blue;"> --> PROMOCIÓN</span>
+                            </strong>
+                            <br>
+                            <i style="text-decoration: line-through; color: orange;">
+                                <strong>Precio normal: $' . $precioNormal . '</strong>
+                            </i>
+                        ';
+                    } else {
+                        $mensajeP = 'Precio: $<p class="precio" style="display: inline;">' . $fila['precioPlatillo'] . '</p>';
+                    }
+                    
                     
                     echo '
                         <div class="elemento">
                             <div class="cont-imagen">
                                 <img src="'.$imagenPlatillo.'" alt="">
                                 <div>
-                                    <h2>'.$fila['nombrePlatillo'].'</h2><br>
+                                    <h2 class="nombre">'.$fila['nombrePlatillo'].'</h2><br>
                                     <h3 class="linea">Categoria: </h3><p class="linea">'.$nombreCategoria.'</p><br><br>
-                                    <h3 class="linea">Precio: </h3><p class="linea">$'.$fila['precioPlatillo'].'</p><br><br>
+                                    '.$mensajeP.'<br><br>
                                     <h3 class="linea">Descripción: </h3><p class="linea">'.$fila['descripcionPlatillo'].'</p><br><br><br><br>
                                     <div class="cont-boton">
-                                        <button>Agregar a mi<br>pedido</button>
+                                        <form action="procesar_pedido.php" method="POST">
+                                            <input type="hidden" name="idPedido" value="'.$idPedidoActual.'">
+                                            <input type="hidden" name="idPlatillo" value="'.$idPlatillo.'">
+                                            <input type="hidden" name="cantidad" value="1">
+                                            <button type="submit" class="compra-pedido">Agregar a mi<br>pedido</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>';
+                        </div>
+                        <script src="../recursos/carrito.js"></script>';
                 } else {
                     echo "<h2>No se encontraron registros del platillo, ha surgido un problema. Disculpe las molestias.</h2> <br>";
                 }
@@ -64,4 +104,5 @@
         ?>
     </main>
 </body>
+
 </html>

@@ -13,12 +13,121 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
+    <?php
+        include("../recursos/pedidoActual.php");
+    ?>
 </head>
 <body>
+    <img class="carrito-boton" src="../imagenes/logo/cart.png" alt="">
+    <?php
+        include("../recursos/conexion.php");
+
+        if ($conexion->connect_error) {
+            die("Error en la conexión: " . $conexion->connect_error);
+        }
+
+        $consultaSQL = "SELECT pp.idPlatillo, pp.cantidad, p.nombrePlatillo, p.precioPlatillo
+                        FROM pedidoplatillo pp
+                        JOIN Platillo p ON pp.idPlatillo = p.idPlatillo
+                        WHERE pp.idPedido = ?";
+        $stmt = $conexion->prepare($consultaSQL);
+        $stmt->bind_param("i", $idPedidoActual);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        $productosHTML = '';
+        $total = 0;
+
+        if ($resultado->num_rows > 0) {
+            while ($fila = $resultado->fetch_assoc()) {
+                $idPlatillo = $fila['idPlatillo'];
+                $nombrePlatillo = htmlspecialchars($fila['nombrePlatillo']);
+                $precioPlatillo = htmlspecialchars($fila['precioPlatillo']);
+                $cantidad = htmlspecialchars($fila['cantidad']);
+                $sql = "SELECT idEstadoPreparacion FROM Pedido WHERE idPedido = $idPedidoActual";
+                $result = $conexion->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    $idEstadoPreparacion = $row['idEstadoPreparacion'];
+
+                    $subtotal = $precioPlatillo * $cantidad;
+                    $total += $subtotal;
+
+                    if ($idEstadoPreparacion == '1') {
+                        $productosHTML .= '
+                            <div class="renglon">
+                                <p class="postre">' . $nombrePlatillo . '</p>
+                                <p class="precio">$' . number_format($precioPlatillo * $cantidad, 2) . '</p>
+                                <form action="actualizar_pedido.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="idPlatillo" value="' . $idPlatillo . '">
+                                    <input type="hidden" name="idPedido" value="' . $idPedidoActual . '">
+                                    <input type="number" name="cantidad" value="' . $cantidad . '" min="1" class="input-cantidad">
+                                    <button type="submit" name="accion" value="actualizar" class="boton-actualizar">Actualizar</button>
+                                    <button type="submit" name="accion" value="quitar" class="boton-quitar">Quitar</button>
+                                </form>
+                            </div>
+                        ';
+                    } elseif ($idEstadoPreparacion == '3') {
+                        $productosHTML .= '
+                            <div class="renglon">
+                                <p class="postre">' . $nombrePlatillo . '</p>
+                                <p class="precio">$' . number_format($precioPlatillo * $cantidad, 2) . '</p>
+                                <form action="actualizar_pedido.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="idPlatillo" value="' . $idPlatillo . '">
+                                    <input type="hidden" name="idPedido" value="' . $idPedidoActual . '">
+                                    <input type="number" name="cantidad" value="' . $cantidad . '" min="1" class="input-cantidad" disabled>
+                                    <p style="font-size:1rem;">El pedido ya se ha realizado, debe pasar por él para poder realizar más pedidos.</p>
+                                </form>
+                            </div>
+                        ';
+                    }
+            }   }
+        } else {
+            $productosHTML = '<p style="font-size:1rem;">No has agregado platillos a tu pedido actual.</p>';
+        }
+
+        $totalFormatted = number_format($total, 2);
+
+        $stmt->close();
+        $conexion->close();
+    ?>
+
+
+    <div class="carrito-fondo">
+        <div class="carrito-ventana">
+            <?php echo 'ID del pedido: ' . htmlspecialchars($idPedidoActual) . '.'; ?>
+            <p class="titulo">Carrito de Compras</p>
+
+            <div class="encabezado-detalle">
+                <p class="columna-producto" style="font-size:1rem">Producto</p>
+                <p class="columna-precio" style="font-size:1rem">Precio</p>
+            </div>
+
+            <div class="productos">
+                <?php echo $productosHTML; ?>
+            </div>
+
+            <div class="total">
+                <p>Total</p>
+                <p class="precio-Total" style="font-size:1rem">$<?php echo $totalFormatted; ?></p>
+            </div>
+
+            <?php 
+                if($idEstadoPreparacion=='1'){
+                    echo '<form style="padding:0; margin:0;" action="realizar_compra.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="idPedido" value="'.$idPedidoActual.'">
+                        <button type="submit" class="boton boton-compra">Realizar Compra</button>
+                    </form>';
+                }
+            ?>
+        </div>
+    </div>
+
+
     <header>
-        <p id="logo-titulo"> <img src=../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
-        <p id="nombre-usuario">  <img src="../imagenes/usuario.png" alt="usuario"> MateoWert</p>
+        <p id="logo-titulo"> <img src=../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
+        <p id="nombre-usuario">  <img src="../imagenes/usuarios/usuario.png" alt="usuario"> MateoWert</p>
     </header>
     <nav>
         <h2><a href="../paginas/populares.php">Populares</a></h2>
@@ -40,4 +149,5 @@
         <p>Todos los derechos reservados Cantina Azteca &copy;</p>
     </footer>
 </body>
+<script src="../recursos/carrito.js"></script>
 </html>
