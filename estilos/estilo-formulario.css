@@ -1,0 +1,57 @@
+.form-container {
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FEEBC1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #F5B895;
+}
+
+.form-container label {
+    display: block;
+    margin-top: 10px;
+    color: black;
+    font-weight: bolder;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="file"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #CBDBE2;
+    border-radius: 5px;
+    background-color: #FFF;
+}
+
+.form-container textarea {
+    height: 100px;
+    resize: none;
+}
+
+.form-container .btn-submit {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F5B895;
+    color: #FFF;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-container .btn-submit:hover {
+    background-color: #CBDBE2;
+}

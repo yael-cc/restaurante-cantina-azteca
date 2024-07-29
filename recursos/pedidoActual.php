@@ -1,6 +1,20 @@
 <?php
     include("conexion.php");
+    // include '../paginas/general.php';
+
     $idPedidoActual = 0;
+    
+    // $sqlIDUsuario="SELECT idUsuario from usuario where nombreUsuarioLogin = '".$_SESSION['usuario']."'";
+    // $resultado = $conexion->query($sqlIDUsuario);
+
+    // if ($resultado->num_rows > 0) {
+    //     while ($fila = $resultado->fetch_assoc()) {
+    //         $idUsuarioActual = $fila['idUsuario'];
+    //     }
+    // } else {
+    //     echo "<h2>Error durante la busqueda</h2> <br>";
+    // }
+
     $consultaPedidoActual = "SELECT idPedido FROM Pedido WHERE (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 1) OR (idUsuario = $idUsuarioActual AND idEstadoPreparacion = 3) LIMIT 1";
     
     $resultadoPedidoA = $conexion->query($consultaPedidoActual);

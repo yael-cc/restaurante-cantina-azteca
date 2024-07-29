@@ -17,7 +17,7 @@
 </head>
 <body>
     <header>
-        <p id="logo-titulo"> <img src=../../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
+        <p id="logo-titulo"> <img src=../../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
         <?php
             session_start();
             if(isset($_SESSION['usuario'])){

@@ -74,7 +74,19 @@
                     } else {
                         $mensajeP = 'Precio: $<p class="precio" style="display: inline;">' . $fila['precioPlatillo'] . '</p>';
                     }
-                    
+                    $mensajeCompra = '';
+
+                    if(isset($_SESSION['usuario'])){
+                        $mensajeCompra = '<form action="procesar_pedido.php" method="POST">
+                                            <input type="hidden" name="idPedido" value="'.$idPedidoActual.'">
+                                            <input type="hidden" name="idPlatillo" value="'.$idPlatillo.'">
+                                            <input type="hidden" name="cantidad" value="1">
+                                            <button type="submit" class="compra-pedido">Agregar a mi<br>pedido</button>
+                                        </form>';
+                    }else{
+                        $mensajeCompra = '<h3>INICIA SESION PARA PODER COMPRAR PLATILLOS</h3>';
+                    }
+
                     
                     echo '
                         <div class="elemento">
@@ -86,12 +98,7 @@
                                     '.$mensajeP.'<br><br>
                                     <h3 class="linea">Descripción: </h3><p class="linea">'.$fila['descripcionPlatillo'].'</p><br><br><br><br>
                                     <div class="cont-boton">
-                                        <form action="procesar_pedido.php" method="POST">
-                                            <input type="hidden" name="idPedido" value="'.$idPedidoActual.'">
-                                            <input type="hidden" name="idPlatillo" value="'.$idPlatillo.'">
-                                            <input type="hidden" name="cantidad" value="1">
-                                            <button type="submit" class="compra-pedido">Agregar a mi<br>pedido</button>
-                                        </form>
+                                        '.$mensajeCompra.'
                                     </div>
                                 </div>
                             </div>

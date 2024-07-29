@@ -15,13 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <?php
         include("../recursos/pedidoActual.php");
+        include("inicar-sesion.php");
     ?>
 </head>
 <body>
-    <img class="carrito-boton" src="../imagenes/logo/cart.png" alt="">
     <?php
         include("../recursos/conexion.php");
-
+        
         if ($conexion->connect_error) {
             die("Error en la conexión: " . $conexion->connect_error);
         }
@@ -126,13 +126,12 @@
 
 
     <header>
-        <p id="logo-titulo"> <img src=../imagenes/logo_ca.png alt="Logo">Cantina<br>azteca</p>
+        <p id="logo-titulo"> <img src=../imagenes/logo/logo_ca.png alt="Logo">Cantina<br>azteca</p>
         <?php
             session_start();
             if(isset($_SESSION['usuario'])){
                 include('../recursos/conexion.php');
-                
-                //
+                echo '<img class="carrito-boton" src="../imagenes/logo/cart.png" alt="">';
                 $consultaSQL = "SELECT fotoUsuario FROM usuario WHERE nombreUsuarioLogin = '".$_SESSION['usuario']."'";
                 $resultado = $conexion->query($consultaSQL);
             
@@ -142,6 +141,7 @@
                     }
                 } else {
                     echo "<h2>No se encontro el usuario.</h2> <br>";
+                    $rutaFoto = '../imagenes/usuarios/usuario.png';
                 }
                 // 
 
